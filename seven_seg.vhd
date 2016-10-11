@@ -29,11 +29,11 @@ signal EW_Arrow : std_logic := data(5);
 		begin
 		
 		case NS_light is
-			when "00" => -- GREEN
+			when "00" => -- RED
 				segs(0) <= '0';
-				segs(1) <= '1';
+				segs(1) <= '0';
 				segs(2) <= '0';
-				segs(3) <= '0';
+				segs(3) <= '1';
 				segs(4) <= '0';
 				segs(5) <= '0';
 				segs(6) <= '0';
@@ -47,11 +47,11 @@ signal EW_Arrow : std_logic := data(5);
 				segs(5) <= '0';
 				segs(6) <= '0';				
 				
-			when "10" =>	-- RED			
+			when "10" =>	-- GREEN			
 				segs(0) <= '0';
-				segs(1) <= '0';
+				segs(1) <= '1';
 				segs(2) <= '0';
-				segs(3) <= '1';
+				segs(3) <= '0';
 				segs(4) <= '0';
 				segs(5) <= '0';
 				segs(6) <= '0';
@@ -67,11 +67,11 @@ signal EW_Arrow : std_logic := data(5);
 			end case;
 			
 		case EW_light is
-			when "00" => -- GREEN
+			when "00" => -- RED
 				segs(7) <= '0';
-				segs(8) <= '1';
+				segs(8) <= '0';
 				segs(9) <= '0';
-				segs(10) <= '0';
+				segs(10) <= '1';
 				segs(11) <= '0';
 				segs(12) <= '0';
 				segs(13) <= '0';
@@ -85,11 +85,11 @@ signal EW_Arrow : std_logic := data(5);
 				segs(12) <= '0';
 				segs(13) <= '0';				
 				
-			when "10" =>	-- RED			
+			when "10" =>	-- GREEN		
 				segs(7) <= '0';
-				segs(8) <= '0';
+				segs(8) <= '1';
 				segs(9) <= '0';
-				segs(10) <= '1';
+				segs(10) <= '0';
 				segs(11) <= '0';
 				segs(12) <= '0';
 				segs(13) <= '0';
