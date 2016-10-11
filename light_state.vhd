@@ -118,36 +118,56 @@ architecture logic of light_state is
 		end case;
 	end process;
 
-	mealy: process(current_state)
-	begin
-		case current_state is
-			-- set output logic for each state
-		end case;
-	end process mealy;
 
 	moore: process(current_state)
 	begin
 		-- Initialize state_out to default values so case only covers when they change
 		state_out <= "0000";
+		count1_en <= '0';
+		count2_en <= '0';
+		count3_en <= '0';
+		NS_light <= "00"; -- assume 0 means red light
+		EW_light <= "00";
+		NS_arrow <= '0';
+		EW_arrow <= '0';
 
 		case current_state is
 			when night_m =>
+				-- need a clever way to make lights blink...
+				count1_en <= '1';
+				NS_light <= "01";
 			when NS_green =>
 				state_out <= "0001";
+				count3_en <= '1';
+				NS_light <= "10"; -- assume 2 means green light
 			when NS_green_short =>
 				state_out <= "0010";
+				count2_en <= '1';
+				NS_light <= "10";
 			when NS_yellow =>
 				state_out <= "0011";
+				count2_en <= '1';
+				NS_light <= "01"l -- assume 1 means yellow
 			when EW_left => 
 				state_out <= "0100";
+				count1_en <= '1';
+				EW_arrow <= '1';
 			when EW_green => 
 				state_out <= "0101";
+				count3_en <= '1';
+				EW_light <= "10";
 			when EW_green_short =>
 				state_out <= "0110";
+				count2_en <= '1';
+				EW_light <= "10";
 			when EW_yellow =>
 				state_out <= "0111";
+				count2_en <= '1';
+				EW_light <= "10";
 			when NS_left =>
 				state_out <= "1000";
+				count1_en <= '1';
+				NS_arrow <= '1';
 		end case;
 	end process moore;
 
