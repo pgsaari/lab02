@@ -5,11 +5,14 @@ USE IEEE.NUMERIC_STD.ALL
 entity light_state is
 	port(
 		EW_left_bit, NS_left_bit, night: in std_logic;
-		count: in unsigned(2 downto 0); -- time spent in each state
+		-- state machine has three counters that count to 1, 2, and 3 seconds
+		count1_term, count2_term, count3_term: in std_logic;
 		
+		-- ability to enable each of the three counters
+		count1_en, count2_en, count3_en: in std_logic;
 		NS_light, EW_light: out std_logic_vector(1 downto 0); -- green yellow red
 		NS_arrow, EW_arrow: out std_logic; -- arrow on or off
-		state_out: out std_logic_vector(2 downto 0);
+		state_out: out std_logic_vector(3 downto 0)
 	);
 end entity light_state;
 
@@ -21,30 +24,34 @@ architecture logic of light_state is
 	-- NS_yellow = NS_yellow & EW_red 2 seconds
 	-- NS_left = NS_red, EW_red, & NS_arrow 1 sec
 	-- EW_green = NS_red & EW_green 3 sec
-	-- EW_green_short = 2 seconds 2 sec
+	-- EW_green_short = 2 seconds
 	-- EW_yellow =  EW_yellow & NS_green 2 sec
 	-- EW_left = NS_red, EW_red, EW_arrow 1 sec
-	type state_type is (NS_green, NS_green_short, NS_yellow, NS_left, EW_green, EW_green_short, EW_yellow, EW_left, night_m)
 	
+	-- define the state types
+	type state_type is (NS_green, NS_green_short, NS_yellow, NS_left, EW_green, EW_green_short, EW_yellow, EW_left, night_m);	
 	signal current_state: state_type;
 	signal next_state: state_type;
 
 	begin
-	process(current_state, EW_left_bit, NS_left_bit, night, count)
+	
+	-- this process describes the transitions between states
+	process(current_state, EW_left_bit, NS_left_bit, night, count1_term, count2_term, count3_term)
 	begin
 		case current_state is
 			when NS_green =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "011") then -- 3 seconds
+				elsif(count3_term = '1') then -- 3 seconds
 					next_state <= NS_yellow;
 				else
 					next_state <= NS_green;
 				end if;
+			-- if there was a left turn arrow then the light stays green for 2 sec rather than 3
 			when NS_green_short =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "010") then -- 2 seconds
+				elsif(count2_term = '1') then -- 2 seconds
 					next_state <= NS_yellow;
 				else
 					next_state <= NS_green;
@@ -52,9 +59,9 @@ architecture logic of light_state is
 			when NS_yellow =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "010") & (EW_left_bit = '1') then -- 2 seconds
+				elsif(count2_term = '1') & (EW_left_bit = '1') then -- 2 seconds
 					next_state <= EW_left;
-				elsif(count = "010") & (EW_left_bit = '0') then
+				elsif(count2_term = '1') & (EW_left_bit = '0') then
 					next_state <= EW_green;
 				else
 					next_state <= NS_yellow;
@@ -62,7 +69,7 @@ architecture logic of light_state is
 			when EW_left =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "001") then -- 1 seconds
+				elsif(count1_term = '1') then -- 1 seconds
 					next_state <= EW_green_short;
 				else
 					next_state <= EW_left;
@@ -70,15 +77,16 @@ architecture logic of light_state is
 			when EW_green => 
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "011") then -- 3 seconds
+				elsif(count3_term = '1') then -- 3 seconds
 					next_state <= EW_yellow;
 				else
 					next_state <= EW_green;
 				end if;
+			-- if there was a left turn arrow then the light stays green for 2 sec rather than 3
 			when EW_green_short => 
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "010") then -- 2 seconds
+				elsif(count2_term = '1') then -- 2 seconds
 					next_state <= EW_yellow;
 				else
 					next_state <= EW_green_short;
@@ -86,17 +94,17 @@ architecture logic of light_state is
 			when EW_yellow =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "010") & (NS_left_bit = '1') then -- 2 seconds
+				elsif(count2_term = '1') & (NS_left_bit = '1') then -- 2 seconds
 					next_state <= NS_left;
-				elsif(count = "010") & (EW_left_bit = '0') then
-					next_state <= NS_green
+				elsif(count2_term = '1') & (EW_left_bit = '0') then
+					next_state <= NS_green;
 				else
 					next_state <= EW_yellow;
 				end if;
 			when NS_left =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count = "001") then -- 1 seconds
+				elsif(count1_term = '1') then -- 1 seconds
 					next_state <= NS_green_short;
 				else
 					next_state <= NS_left;
@@ -107,6 +115,43 @@ architecture logic of light_state is
 				else
 					next_state <= night_m;
 				end if;
+		end case;
+	end process;
+
+	mealy: process(current_state)
+	begin
+		case current_state is
+			-- set output logic for each state
+		end case;
+	end process mealy;
+
+	moore: process(current_state)
+	begin
+		-- Initialize state_out to default values so case only covers when they change
+		state_out <= "0000";
+
+		case current_state is
+			when night_m =>
+			when NS_green =>
+				state_out <= "0001";
+			when NS_green_short =>
+				state_out <= "0010";
+			when NS_yellow =>
+				state_out <= "0011";
+			when EW_left => 
+				state_out <= "0100";
+			when EW_green => 
+				state_out <= "0101";
+			when EW_green_short =>
+				state_out <= "0110";
+			when EW_yellow =>
+				state_out <= "0111";
+			when NS_left =>
+				state_out <= "1000";
+		end case;
+	end process moore;
+
+
 end architecture logic;
 
 
