@@ -59,7 +59,7 @@ port (
 ---------State Machine----------------------
 
 component light_state is port(
-		EW_left_bit, NS_left_bit, night: in std_logic;
+		EW_left_bit, NS_left_bit, night, clk: in std_logic;
 		
 		-- state machine has three counters that count to 1, 2, and 3 seconds
 		count1_term, count2_term, count3_term: in std_logic;
@@ -141,6 +141,8 @@ port map (
 	
 
 state_mach : light_state port map(
+		clk => CLOCK_50,
+
 		night => SW (0),
 		NS_left_bit => SW(1),
 		EW_left_bit => SW(2), 

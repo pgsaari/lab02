@@ -63,7 +63,7 @@ signal EW_Arrow : std_logic := data(5);
 				segs(3) <= '1';
 				segs(4) <= '1';
 				segs(5) <= '1';
-				segs(6) <= '0';
+				segs(6) <= '1';
 			end case;
 			
 		case EW_light is
@@ -101,7 +101,7 @@ signal EW_Arrow : std_logic := data(5);
 				segs(10) <= '1';
 				segs(11) <= '1';
 				segs(12) <= '1';
-				segs(13) <= '0';
+				segs(13) <= '1';
 			end case;
 			
 			case NS_arrow is
