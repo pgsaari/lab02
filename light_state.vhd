@@ -3,7 +3,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
 entity light_state is port(
-		EW_left_bit, NS_left_bit, night: in std_logic;
+		EW_left_bit, NS_left_bit, night, clk: in std_logic;
 		-- state machine has three counters that count to 1, 2, and 3 seconds
 		count1_term, count2_term, count3_term: in std_logic;
 		
@@ -27,11 +27,18 @@ architecture logic of light_state is
 	-- EW_left = NS_red, EW_red, EW_arrow 1 sec
 	
 	-- define the state types
-	type state_type is (NS_green, NS_green_short, NS_yellow, NS_left, EW_green, EW_green_short, EW_yellow, EW_left, night_m);	
-	signal current_state: state_type;
+	type state_type is (NS_green, NS_green_short, NS_yellow, NS_left, EW_green, EW_green_short, EW_yellow, EW_left, night_m, night_OFF);	
+	signal current_state: state_type := NS_green;
 	signal next_state: state_type;
-
+	
 	begin
+	
+	PROCESS (clk)
+	Begin
+		if rising_edge(clk) Then
+			current_state <= next_state;
+		End If;
+	END PROCESS;
 	
 	-- this process describes the transitions between states
 	process(current_state, EW_left_bit, NS_left_bit, night, count1_term, count2_term, count3_term)
@@ -110,8 +117,18 @@ architecture logic of light_state is
 			when night_m =>
 				if(night = '0') then
 					next_state <= NS_green;
+				elsif (count1_term = '1') Then
+					next_state <= night_OFF;
 				else
 					next_state <= night_m;
+				end if;
+			when night_OFF =>
+				if(night = '0') then
+					next_state <= NS_green;
+				elsif (count1_term = '1') Then
+					next_state <= night_m;
+				else
+					next_state <= night_OFF;
 				end if;
 		end case;
 	end process;
@@ -134,6 +151,11 @@ architecture logic of light_state is
 				-- need a clever way to make lights blink...
 				count1_en <= '1';
 				NS_light <= "01";
+			when night_OFF => 
+				state_out <= "1001";
+				count1_en <= '1';
+				NS_light <= "11";
+				EW_light <= "11";
 			when NS_green =>
 				state_out <= "0001";
 				count3_en <= '1';
@@ -161,7 +183,7 @@ architecture logic of light_state is
 			when EW_yellow =>
 				state_out <= "0111";
 				count2_en <= '1';
-				EW_light <= "10";
+				EW_light <= "01";
 			when NS_left =>
 				state_out <= "1000";
 				count1_en <= '1';
