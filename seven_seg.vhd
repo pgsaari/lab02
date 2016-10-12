@@ -105,7 +105,7 @@ signal EW_Arrow : std_logic := data(5);
 			end case;
 			
 			case NS_arrow is
-			when "1" => -- ON
+			when '1' => -- ON
 				segs(14) <= '1';
 				segs(15) <= '1';
 				segs(16) <= '1';
@@ -125,7 +125,7 @@ signal EW_Arrow : std_logic := data(5);
 			end case;
 			
 			case EW_arrow is
-			when "1" => -- ON
+			when '1' => -- ON
 				segs(21) <= '1';
 				segs(22) <= '0';
 				segs(23) <= '0';

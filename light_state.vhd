@@ -1,20 +1,18 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL
+USE IEEE.NUMERIC_STD.ALL;
 
-entity light_state is
-	port(
+entity light_state is port(
 		EW_left_bit, NS_left_bit, night: in std_logic;
 		-- state machine has three counters that count to 1, 2, and 3 seconds
 		count1_term, count2_term, count3_term: in std_logic;
 		
 		-- ability to enable each of the three counters
-		count1_en, count2_en, count3_en: in std_logic;
+		count1_en, count2_en, count3_en: out std_logic;
 		NS_light, EW_light: out std_logic_vector(1 downto 0); -- green yellow red
 		NS_arrow, EW_arrow: out std_logic; -- arrow on or off
 		state_out: out std_logic_vector(3 downto 0)
-	);
-end entity light_state;
+); end entity;
 
 architecture logic of light_state is
 	
@@ -59,9 +57,9 @@ architecture logic of light_state is
 			when NS_yellow =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count2_term = '1') & (EW_left_bit = '1') then -- 2 seconds
+				elsif(count2_term = '1') AND (EW_left_bit = '1') then -- 2 seconds
 					next_state <= EW_left;
-				elsif(count2_term = '1') & (EW_left_bit = '0') then
+				elsif(count2_term = '1') AND (EW_left_bit = '0') then
 					next_state <= EW_green;
 				else
 					next_state <= NS_yellow;
@@ -94,9 +92,9 @@ architecture logic of light_state is
 			when EW_yellow =>
 				if(night = '1') then
 					next_state <= night_m;
-				elsif(count2_term = '1') & (NS_left_bit = '1') then -- 2 seconds
+				elsif(count2_term = '1') AND (NS_left_bit = '1') then -- 2 seconds
 					next_state <= NS_left;
-				elsif(count2_term = '1') & (EW_left_bit = '0') then
+				elsif(count2_term = '1') AND (EW_left_bit = '0') then
 					next_state <= NS_green;
 				else
 					next_state <= EW_yellow;
@@ -147,7 +145,7 @@ architecture logic of light_state is
 			when NS_yellow =>
 				state_out <= "0011";
 				count2_en <= '1';
-				NS_light <= "01"l -- assume 1 means yellow
+				NS_light <= "01"; -- assume 1 means yellow
 			when EW_left => 
 				state_out <= "0100";
 				count1_en <= '1';
@@ -173,15 +171,4 @@ architecture logic of light_state is
 
 
 end architecture logic;
-
-
-
-
-
-
-
-
-
-
-
 
