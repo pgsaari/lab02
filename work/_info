@@ -33,11 +33,11 @@ Artl
 R2
 R3
 R4
-Z13 DEx4 work 11 gen_counter 0 22 ;=FZBENL6d^acnQ[_b_I53
+DEx4 work 11 gen_counter 0 22 ;=FZBENL6d^acnQ[_b_I53
 l26
 L21
-Z14 VbTe=0Df3>FM^8jPYCPJ7X1
-Z15 !s100 `IHk<YPNK_Ii@iifLREZ;2
+VbTe=0Df3>FM^8jPYCPJ7X1
+!s100 `IHk<YPNK_Ii@iifLREZ;2
 R7
 32
 R8
@@ -48,13 +48,13 @@ R11
 !i113 1
 R12
 Egen_counter_tb
-Z16 w1476145432
+Z13 w1476145432
 R2
 R3
 R4
 R0
-Z17 8gen_counter_tb.vhd
-Z18 Fgen_counter_tb.vhd
+Z14 8gen_counter_tb.vhd
+Z15 Fgen_counter_tb.vhd
 l0
 L5
 VPmamfUX4@g2f;`_bP292[3
@@ -72,7 +72,7 @@ Abehav
 R2
 R3
 R4
-Z19 DEx4 work 14 gen_counter_tb 0 22 PmamfUX4@g2f;`_bP292[3
+DEx4 work 14 gen_counter_tb 0 22 PmamfUX4@g2f;`_bP292[3
 l41
 L9
 VaCjo^=;?HIb:Mh7MAOA=_0
@@ -84,5 +84,83 @@ R8
 R9
 R10
 R11
+!i113 1
+R12
+Elight_state
+Z16 w1476231643
+R2
+R3
+R4
+R0
+Z17 8light_state.vhd
+Z18 Flight_state.vhd
+l0
+L5
+VkBUBSFc3E54]n3@one7>k1
+!s100 MJlBAe?L9l_45W@5PkWmj0
+R7
+32
+Z19 !s110 1476237550
+!i10b 1
+Z20 !s108 1476237550.000000
+Z21 !s90 -reportprogress|300|light_state.vhd|light_state_tb.vhd|
+Z22 !s107 light_state_tb.vhd|light_state.vhd|
+!i113 1
+R12
+Alogic
+R2
+R3
+R4
+Z23 DEx4 work 11 light_state 0 22 kBUBSFc3E54]n3@one7>k1
+l34
+L17
+Z24 VHh[hnX@0fb0OID<Q3UNWf3
+Z25 !s100 m`P5Ml:7^g>f[RSA]0HEh1
+R7
+32
+R19
+!i10b 1
+R20
+R21
+R22
+!i113 1
+R12
+Elight_state_tb
+Z26 w1476237405
+R2
+R3
+R4
+R0
+Z27 8light_state_tb.vhd
+Z28 Flight_state_tb.vhd
+l0
+L5
+VR@53:MbdnSObZnKm[A8=A0
+!s100 g[G=eba?QgUdPb4gO8@b[3
+R7
+32
+R19
+!i10b 1
+R20
+R21
+R22
+!i113 1
+R12
+Astimulus
+R2
+R3
+R4
+Z29 DEx4 work 14 light_state_tb 0 22 R@53:MbdnSObZnKm[A8=A0
+l57
+L8
+Z30 VRba>ATz3TL7aikjMGB:Lc3
+Z31 !s100 aUHM@X]8;VT[:]QH7=LTe1
+R7
+32
+R19
+!i10b 1
+R20
+R21
+R22
 !i113 1
 R12
