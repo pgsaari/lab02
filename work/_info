@@ -87,7 +87,7 @@ R11
 !i113 1
 R12
 Elight_state
-Z16 w1476231643
+Z16 w1476321837
 R2
 R3
 R4
@@ -96,13 +96,13 @@ Z17 8light_state.vhd
 Z18 Flight_state.vhd
 l0
 L5
-VkBUBSFc3E54]n3@one7>k1
-!s100 MJlBAe?L9l_45W@5PkWmj0
+VXdMc7h;AfKPdZ`EmKoBd^0
+!s100 0cQz[_=>4ARLODAEobgUm0
 R7
 32
-Z19 !s110 1476237550
+Z19 !s110 1476322515
 !i10b 1
-Z20 !s108 1476237550.000000
+Z20 !s108 1476322515.000000
 Z21 !s90 -reportprogress|300|light_state.vhd|light_state_tb.vhd|
 Z22 !s107 light_state_tb.vhd|light_state.vhd|
 !i113 1
@@ -111,11 +111,11 @@ Alogic
 R2
 R3
 R4
-Z23 DEx4 work 11 light_state 0 22 kBUBSFc3E54]n3@one7>k1
+Z23 DEx4 work 11 light_state 0 22 XdMc7h;AfKPdZ`EmKoBd^0
 l34
 L17
-Z24 VHh[hnX@0fb0OID<Q3UNWf3
-Z25 !s100 m`P5Ml:7^g>f[RSA]0HEh1
+Z24 VdAcLOb`:kh@lAhjmGIIeB2
+Z25 !s100 UT9J>WgindHFbQzNLUXAB3
 R7
 32
 R19
@@ -126,7 +126,7 @@ R22
 !i113 1
 R12
 Elight_state_tb
-Z26 w1476237405
+Z26 w1476322497
 R2
 R3
 R4
@@ -151,10 +151,10 @@ R2
 R3
 R4
 Z29 DEx4 work 14 light_state_tb 0 22 R@53:MbdnSObZnKm[A8=A0
-l57
+l60
 L8
-Z30 VRba>ATz3TL7aikjMGB:Lc3
-Z31 !s100 aUHM@X]8;VT[:]QH7=LTe1
+VQMP9YEgF7QP[B@dI2oSTQ0
+!s100 L^=AeceN]?d<JeH4@GTaj0
 R7
 32
 R19

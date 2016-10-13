@@ -8,11 +8,12 @@ end entity light_state_tb;
 architecture stimulus of light_state_tb is
 
 constant  WIDE:positive := 4;
+constant CLK_PER: time := 20 ns;
 
 -- Declare components --
     component light_state is 
         port(
-		    EW_left_bit, NS_left_bit, night: in std_logic;
+		    EW_left_bit, NS_left_bit, night, clk: in std_logic;
 		    count1_term, count2_term, count3_term: in std_logic;
 		    count1_en, count2_en, count3_en: out std_logic;
 		    NS_light, EW_light: out std_logic_vector(1 downto 0); -- green yellow red
@@ -41,7 +42,9 @@ constant  WIDE:positive := 4;
     signal clk: std_logic;
 
     -- signals for the state machine
-    signal EW_left_bit, NS_left_bit, night: std_logic;
+    signal EW_left_bit: std_logic := '0';
+    signal NS_left_bit: std_logic := '0';
+    signal night: std_logic;
     signal count1_term, count2_term, count3_term: std_logic;
     signal count1_en, count2_en, count3_en: std_logic;
     signal NS_light, EW_light: std_logic_vector(1 downto 0);
@@ -61,6 +64,7 @@ begin
         port map(
             EW_left_bit => EW_left_bit, NS_left_bit => NS_left_bit,
             night => night, 
+            clk => clk,
             count1_term => count1_term, count2_term => count2_term, count3_term => count3_term,
             count1_en => count1_en, count2_en => count2_en, count3_en => count3_en,
             NS_light => NS_light, EW_light => EW_light,
@@ -117,9 +121,9 @@ begin
 	    clk_proc: process
     	begin
 		    clk <= '0';
-		    wait for 10 NS;
+		    wait for CLK_PER;
 		    clk <= '1';
-		    wait for 10 NS;
+		    wait for CLK_PER;
 	    end process clk_proc;
 
         vectors: process begin
@@ -127,20 +131,51 @@ begin
         reset1 <='1';
         reset2 <='1';
         reset3 <= '1';
-        wait for 100 NS;
+        wait for 3*CLK_PER;
 
         reset1 <='0';
         reset2 <='0';
         reset3 <= '0';
-        wait for 100 NS;
+        wait for 27*CLK_PER;
+        -- at 600 ns
+        report "End of Test Case 1"
+		severity WARNING;
 
-		report "End of simulation"
-		severity FAILURE;
+        NS_left_bit <= '1';
+        wait for 38* CLK_PER;
+        -- at 1360 ns
+		report "End of Test Case 2"
+		severity WARNING;
+
+        
+        NS_left_bit <= '0';
+        EW_left_bit <= '1';
+        wait for 15* CLK_PER;
+        -- at 1660
+		report "End of Test Case 3"
+		severity WARNING;
+
+        NS_left_bit <= '1';
+        EW_left_bit <= '1';
+        wait for 32* CLK_PER;
+        -- at 2300
+		report "End of Test Case 4"
+		severity WARNING;
+
+        NS_left_bit <= '0';
+        EW_left_bit <= '0';
+        night <= '1';
+        wait for 10* CLK_PER;
+        -- at 2500
+		report "End of Test Case 5"
+		severity WARNING;
+
+        night <= '0';
+        wait for 10* CLK_PER;
+        -- at 2700
+		report "End of Test Case 6"
+		severity WARNING;
 
         end process;
-
-
-    
-    
 
 end architecture stimulus;
