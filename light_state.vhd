@@ -28,15 +28,17 @@ architecture logic of light_state is
 	
 	-- define the state types
 	type state_type is (NS_green, NS_green_short, NS_yellow, NS_left, EW_green, EW_green_short, EW_yellow, EW_left, night_m, night_OFF);	
-	signal current_state: state_type := NS_green;
+	signal current_state: state_type;
 	signal next_state: state_type;
 	
 	begin
-	
+	--///////////CHANGES STATE ON THE RISING EDGE//////-----
 	PROCESS (clk)
 	Begin
 		if rising_edge(clk) Then
 			current_state <= next_state;
+		else
+			current_state <=current_state;
 		End If;
 	END PROCESS;
 	
@@ -59,7 +61,7 @@ architecture logic of light_state is
 				elsif(count2_term = '1') then -- 2 seconds
 					next_state <= NS_yellow;
 				else
-					next_state <= NS_green;
+					next_state <= NS_green_short;
 				end if;
 			when NS_yellow =>
 				if(night = '1') then
@@ -101,7 +103,7 @@ architecture logic of light_state is
 					next_state <= night_m;
 				elsif(count2_term = '1') AND (NS_left_bit = '1') then -- 2 seconds
 					next_state <= NS_left;
-				elsif(count2_term = '1') AND (EW_left_bit = '0') then
+				elsif(count2_term = '1') AND (NS_left_bit = '0') then
 					next_state <= NS_green;
 				else
 					next_state <= EW_yellow;
