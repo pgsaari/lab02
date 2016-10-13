@@ -1,6 +1,4 @@
--- TODO: Customize this so it shows the letters G, Y ,R
---		? - do we need two versions of this for the left turn arrows? (PS)
-
+-- oUTPUT TO MAP OUT THE SEVEN SEGMENTS DISPLAY CORRECTLY --
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
