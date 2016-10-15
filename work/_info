@@ -87,7 +87,7 @@ R11
 !i113 1
 R12
 Elight_state
-Z16 w1476321837
+Z16 w1476322868
 R2
 R3
 R4
@@ -100,9 +100,9 @@ VXdMc7h;AfKPdZ`EmKoBd^0
 !s100 0cQz[_=>4ARLODAEobgUm0
 R7
 32
-Z19 !s110 1476322515
+Z19 !s110 1476488067
 !i10b 1
-Z20 !s108 1476322515.000000
+Z20 !s108 1476488066.000000
 Z21 !s90 -reportprogress|300|light_state.vhd|light_state_tb.vhd|
 Z22 !s107 light_state_tb.vhd|light_state.vhd|
 !i113 1
@@ -114,8 +114,8 @@ R4
 Z23 DEx4 work 11 light_state 0 22 XdMc7h;AfKPdZ`EmKoBd^0
 l34
 L17
-Z24 VdAcLOb`:kh@lAhjmGIIeB2
-Z25 !s100 UT9J>WgindHFbQzNLUXAB3
+VT19_N;CNJB1Del`83DA5m1
+!s100 i]@Eg5Qe7eWf9ZOa:3J?l3
 R7
 32
 R19
@@ -126,13 +126,13 @@ R22
 !i113 1
 R12
 Elight_state_tb
-Z26 w1476322497
+Z24 w1476322497
 R2
 R3
 R4
 R0
-Z27 8light_state_tb.vhd
-Z28 Flight_state_tb.vhd
+Z25 8light_state_tb.vhd
+Z26 Flight_state_tb.vhd
 l0
 L5
 VR@53:MbdnSObZnKm[A8=A0
@@ -150,11 +150,11 @@ Astimulus
 R2
 R3
 R4
-Z29 DEx4 work 14 light_state_tb 0 22 R@53:MbdnSObZnKm[A8=A0
+Z27 DEx4 work 14 light_state_tb 0 22 R@53:MbdnSObZnKm[A8=A0
 l60
 L8
-VQMP9YEgF7QP[B@dI2oSTQ0
-!s100 L^=AeceN]?d<JeH4@GTaj0
+Z28 VQMP9YEgF7QP[B@dI2oSTQ0
+Z29 !s100 L^=AeceN]?d<JeH4@GTaj0
 R7
 32
 R19

@@ -133,6 +133,7 @@ begin
         reset3 <= '1';
         wait for 3*CLK_PER;
 
+        --Test Case 1: Light cycle no left turns 
         reset1 <='0';
         reset2 <='0';
         reset3 <= '0';
@@ -141,13 +142,14 @@ begin
         report "End of Test Case 1"
 		severity WARNING;
 
+        --Test Case 2: Light Cycle NS Left Turn
         NS_left_bit <= '1';
         wait for 38* CLK_PER;
         -- at 1360 ns
 		report "End of Test Case 2"
 		severity WARNING;
 
-        
+        --Test Case 3: Light cycle EW left turn 
         NS_left_bit <= '0';
         EW_left_bit <= '1';
         wait for 15* CLK_PER;
@@ -155,6 +157,7 @@ begin
 		report "End of Test Case 3"
 		severity WARNING;
 
+        --Test Case 4: Light cycle both directions left turn
         NS_left_bit <= '1';
         EW_left_bit <= '1';
         wait for 32* CLK_PER;
@@ -162,6 +165,7 @@ begin
 		report "End of Test Case 4"
 		severity WARNING;
 
+        --Test Case 5: Enter night mode
         NS_left_bit <= '0';
         EW_left_bit <= '0';
         night <= '1';
@@ -170,6 +174,7 @@ begin
 		report "End of Test Case 5"
 		severity WARNING;
 
+        --Test Case 6: Exit night mode
         night <= '0';
         wait for 10* CLK_PER;
         -- at 2700
